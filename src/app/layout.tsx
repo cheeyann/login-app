@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { ReduxProvider } from "@/redux/provider";
+import { NextAuthProvider } from "@/components/NextAuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,7 +20,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main className="h-screen flex flex-col justify-center items-center">
-          {children}
+          <NextAuthProvider>
+            <ReduxProvider>{children}</ReduxProvider>
+          </NextAuthProvider>
         </main>
       </body>
     </html>
