@@ -9,7 +9,7 @@ const UserListForm = () => {
       const res = await fetch(`https://reqres.in/api/users`);
       const data = await res.json();
       let allUserList = [];
-      if (data.total_pages > 1) {
+      if (data.total_pages >= 1) {
         for (let i = 1; i <= data.total_pages; i++) {
           const res = await fetch(`https://reqres.in/api/users?page=${i}`);
           const data = await res.json();
@@ -84,6 +84,7 @@ const UserListForm = () => {
                       className="button-action button-normal"
                       onClick={() => onClickShowEmail(user, index)}
                       label={user.isShowEmail ? `Hide Email` : `Show Email`}
+                      datatestid={`showEmailButton_${index}`}
                     />
                   </td>
                 </tr>

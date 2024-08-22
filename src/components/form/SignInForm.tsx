@@ -6,6 +6,7 @@ import { logIn } from "@/redux/features/auth-slice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/redux/store";
 import { useRouter } from "next/navigation";
+
 const SignInForm = () => {
   const { data: session } = useSession();
   const dispatch = useDispatch<AppDispatch>();
@@ -33,6 +34,7 @@ const SignInForm = () => {
         className="button button-normal w-full"
         isLoading={isLoading}
         label="Sign in with Google"
+        datatestid="SignInGoogleButton"
       />
     </div>
   );

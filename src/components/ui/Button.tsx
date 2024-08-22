@@ -5,13 +5,23 @@ interface ButtonProps {
   onClick: () => void;
   disabled?: boolean;
   isLoading?: boolean;
+  datatestid?: string;
 }
 const Button = (props: ButtonProps) => {
-  const { className, label, onClick, disabled, isLoading, ...rest } = props;
+  const {
+    className,
+    label,
+    onClick,
+    disabled,
+    isLoading,
+    datatestid,
+    ...rest
+  } = props;
   return (
     <button
       className={className}
       disabled={disabled}
+      data-testid={datatestid}
       {...rest}
       onClick={onClick}
     >

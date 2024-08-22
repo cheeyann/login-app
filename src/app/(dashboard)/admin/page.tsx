@@ -5,7 +5,7 @@ import LoginHeader from "@/components/LoginHeader";
 import { useAppSelector } from "@/redux/store";
 import Link from "next/link";
 import React from "react";
-
+import withAuth from "@/components/WithAuth";
 const page = () => {
   const isSignedIn = useAppSelector((state) => state.authReducer.value.isAuth);
   const userName = useAppSelector((state) => state.authReducer.value.userName);
@@ -32,4 +32,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default withAuth(page);
