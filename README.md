@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+#1 Install Dependencies
+npm install
 
-```bash
+#2 Set Up Environment Variables
+Create a .env file in the root of the project and add your Google OAuth credentials:
+
+DATABASE_URL="postgresql://username:password@localhost:5432/logindb?schema=public"
+NEXTAUTH_SECRET="your_random_secret"
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+
+#3 Run the Application
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+http://localhost:3000/
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#4 Project Structure
+`app/` : Contains the Next.js pages.
+`components/` : Contains reusable components and form.
+`lib/` : Contains DB and Auth configuration.
+`redux/` : Contains the Redux setup, including the authentication slice and store configuration.
+`util/` : Contains mock provider for JEST test.
+`app/api/auth/[...nextauth]` : The NextAuth.js API route for handling authentication.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Solution
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#1 / :
+Visit the homepage and click "Open admin page" will redirect to /sign-in
 
-## Learn More
+#2 /sign-in :
+Click "Sign in with Google" to authenticate with your Google account and set the signedIn session using redux store.
 
-To learn more about Next.js, take a look at the following resources:
+#3 /admin (Protected page) :
+#3a. User list screen , 3 components shown: header, footer and body.
+#3b. API call 1st time to get total pages then loop call the API to retrieve the complete set of records.
+#3c. Filter the list with condition: first name starting with “G”, or last name starting with “W”.
+#3d. Add 'isShowEmail' flag into each record.
+#3e. Show User list using table and email is masked using reusable function 'maskEmailFn' based on 'isShowEmail' flag
+#3f. 'Show Email' button is shown in last column of each record, non-mask email will show once the button clicked. Toggle 'isShowEmail' flag and button label change to 'Hide Email'.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#4 Sign out:
+Once signed in, click sign out button at the /admin header to sign out.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#5 After sign out:
+Once signed out, trying to access /admin , will redirect you to /sign-in page.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#6 Unit tests with 90.47% code coverage.
